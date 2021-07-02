@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import javax.annotation.Nullable;
+
 import static android.content.ContentValues.TAG;
 import static co.apptailor.googlesignin.RNGoogleSigninModule.RC_SIGN_IN;
 
@@ -36,6 +38,7 @@ public class MainActivity2 extends AppCompatActivity {
     ProgressDialog dialog;
     private GoogleSignInClient mGoogleSignInClient;
     private final static int RC_SIGN_IN = 123;
+
     Button signIn;
     private FirebaseAuth mAuth;
 
@@ -56,6 +59,7 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         mAuth = FirebaseAuth.getInstance();
+        //Assign variable
         signIn = findViewById(R.id.googleButton);
 
         createRequest();
@@ -122,21 +126,29 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+       //Check condition
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            if (task.isSuccessful()){
+                //When google sign is successful
+                //Initialize string
+                String s = "Signed in";
+                Toast.makeText(getApplicationContext(),"Signed in...",Toast.LENGTH_SHORT).show();
             }
+
+//            try {
+//                // Google Sign In was successful, authenticate with Firebase
+//                GoogleSignInAccount account = task.getResult(ApiException.class);
+//                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+//                firebaseAuthWithGoogle(account.getIdToken());
+//            } catch (ApiException e) {
+//                // Google Sign In failed, update UI appropriately
+//                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
         }
     }
 
