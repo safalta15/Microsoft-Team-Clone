@@ -65,7 +65,7 @@
                 app:backgroundTint="#938E8E" />
 
             <Button
-                android:id="@+id/createButton"
+                android:id="@+id/CreateButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

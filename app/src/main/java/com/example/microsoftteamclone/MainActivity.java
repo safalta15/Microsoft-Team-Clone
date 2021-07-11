@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN = 3000;
 
+    //Create splash screen
     //Variable
     Animation topAnim, bottomAnim;
     ImageView image;
